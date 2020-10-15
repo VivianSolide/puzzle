@@ -1,43 +1,52 @@
 def puzzle_solver(pieces, width, height):
     result = []
-    index = width - 1
 
-    def convert(list):
-        return tuple(list)
+    # creating the index
+    x_limit = width - 1
+    y_limit = height - 1
 
-    def find_place(p):
-        if result[0][0] != None and result[0][0][0] == p[0] and result[index][0][0][1] == p[0][0]:
-            result[0][1] = p
-        elif result[index][0] != None and result[index][0][0] == p[0] and result[0][0][1][1] == p[0][0]:
-            result[index][1] = p
-        if p[0][0] == None and p[1][0] == None:
-            result[1][0] = p
-            print(result)
-        else:
-            # print("pddd", p)
-            find_place(p)
-            pass
-
+    # drawing an empty puzzle
     for arr in range(height):
         temp = [None] * width
         result.append(temp)
 
+    remaining = []
+    # put the corners
     for p in pieces:
         if p[0][0] == None and p[0][1] == None and p[1][0] == None:
             # TOP LEFT
             result[0][0] = p
         elif p[0][0] == None and p[0][1] == None and p[1][1] == None:
             # TOP RIGHT
-            result[0][index] = p
+            result[0][x_limit] = p
         elif p[0][0] == None and p[1][0] == None and p[1][1] == None:
             # BOTTOM LEFT
-            result[index][0] = p
+            result[y_limit][0] = p
         elif p[0][1] == None and p[1][1] == None and p[1][0] == None:
             # BOTTOM RIGHT
-            result[index][index] = p
+            result[y_limit][x_limit] = p
         else:
-            find_place(p)
+            remaining.append(p)
 
-    result = list(map(convert, result))
+    def fill_pieces(result, remaining):
+        x = 0
+        y = 0
+
+        for i in range(width):
+            if result[i][x] != None:
+                for p in remaining:
+                    if result[i][0][0][1] == p[0][0] and result[i][0][1][1] == p[1][0]:
+                        result[i][1] = p
+                        remaining.remove(p)
+
+    fill_pieces(result,remaining)
+
+    print(remaining)
+
+    # def convert(list):
+    #     # for el in list:
+    #     return tuple(list)
+
+    # result = list(map(convert, result))
 
     return result
