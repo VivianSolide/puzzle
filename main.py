@@ -30,7 +30,6 @@ def puzzle_solver(pieces, width, height):
 
     def fill_pieces(result, remaining):
         x = 0
-        y = 0
 
         for i in range(width):
             if result[i][x] != None:
@@ -38,15 +37,21 @@ def puzzle_solver(pieces, width, height):
                     if result[i][0][0][1] == p[0][0] and result[i][0][1][1] == p[1][0]:
                         result[i][1] = p
                         remaining.remove(p)
+                    elif result[i][0][1] == p[0]:
+                        result[1][i] = p
+                        remaining.remove(p)
+                    elif result[0][width - 1][1] == p[0]:
+                        result[1][width-1] = p
+                        remaining.remove(p)
 
+        
     fill_pieces(result,remaining)
 
-    print(remaining)
+    answer = []
+    for res in result:
+        list = []
+        for ult in res:
+            list.append(ult[2])
+        answer.append(tuple(list))
 
-    # def convert(list):
-    #     # for el in list:
-    #     return tuple(list)
-
-    # result = list(map(convert, result))
-
-    return result
+    return answer
