@@ -48,13 +48,7 @@ def puzzle_solver(pieces, width, height):
                         if result[index][i] != '':
                             check = (result[index][i][1])
                             if check == north:
-                                
-                                print(result)
-                                
-                                result[i][index + 1] = p
-
-                                print(result)
-
+                                result[i][index] = p
                                 try:
                                     remaining.remove(p)
                                     return True
@@ -62,19 +56,9 @@ def puzzle_solver(pieces, width, height):
                                     break
 
                 for xxx in range(max(height, width)):
-                    x_limit_loop = width - 1
-                    y_limit_loop = height - 1
+                    x_solving(result, xxx)
+                    y_solving(result, xxx)
 
-                    if xxx % 2 == 0:
-                        if x_solving(result, xxx) == True:
-                            break
-                        if y_solving(result, xxx) == True:
-                            break
-                    elif xxx % 2 == 1:
-                        x_solving(result, x_limit_loop)
-                        x_limit_loop = x_limit_loop - 1
-                        y_solving(result, y_limit_loop)
-                        y_limit_loop = y_limit_loop - 1
 
     fill_pieces(result, remaining)
 
@@ -84,5 +68,7 @@ def puzzle_solver(pieces, width, height):
         for r in res:
             list.append(r[2])
         answer.append(tuple(list))
+
+    print(answer)
 
     return answer
