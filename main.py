@@ -66,8 +66,6 @@ def puzzle_solver(pieces, width, height):
                                     except ValueError:
                                         break
 
-
-
                 for x in range(max(width, height)):
                     x_solving(result, x)
                     y_solving(result, x)
