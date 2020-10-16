@@ -5,7 +5,6 @@ def puzzle_solver(pieces, width, height):
     x_limit = width - 1
     y_limit = height - 1
 
-    # drawing an empty puzzle
     for arr in range(height):
         temp = [""] * width
         result.append(temp)
@@ -25,6 +24,7 @@ def puzzle_solver(pieces, width, height):
             remaining.append(p)
 
     def fill_pieces(result, remaining):
+        print(result)
         while len(remaining) > 0:
             for p in remaining:
                 north = p[0]
@@ -33,38 +33,32 @@ def puzzle_solver(pieces, width, height):
                 def x_solving(result, index):
                     if p in remaining:
                         for i in range(0, width - 1):
+                            if index < height and i < width:
+                                if result[index][i] != '':
+                                    check = (result[index][i][0][1],
+                                             result[index][i][1][1])
 
-                            try:
-                                empty = result[index][i]
-                                pass
-                            except IndexError:
-                                empty = result[index - 1][i]
-                                pass
-
-                            if empty != '':
-                                check = (empty[0][1],
-                                         empty[1][1])
-
-                                if check == west:
-                                    result[index][i + 1] = p
-                                    try:
-                                        remaining.remove(p)
-                                        pass
-                                    except ValueError:
-                                        break
+                                    if check == west:
+                                        result[index][i + 1] = p
+                                        try:
+                                            remaining.remove(p)
+                                            pass
+                                        except ValueError:
+                                            break
 
                 def y_solving(result, index):
                     if p in remaining:
                         for i in range(0, height - 1):
-                            if result[index][i] != '':
-                                check = result[index][0][1]
-                                if check == north:
-                                    result[i + 1][index] = p
-                                    try:
-                                        remaining.remove(p)
-                                        return True
-                                    except ValueError:
-                                        break
+                            if index < height and i < width:
+                                if result[index][i] != '':
+                                    check = result[index][0][1]
+                                    if check == north:
+                                        result[i + 1][index] = p
+                                        try:
+                                            remaining.remove(p)
+                                            return True
+                                        except ValueError:
+                                            break
 
                 for x in range(max(width, height)):
                     x_solving(result, x)
