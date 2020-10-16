@@ -12,13 +12,13 @@ def puzzle_solver(pieces, width, height):
     remaining = []
     # put the corners
     for p in pieces:
-        if p[0][0] == None and p[0][1] == None and p[1][0] == None:
+        if p[0][0] is None and p[0][1] is None and p[1][0] is None:
             result[0][0] = p
-        elif p[0][0] == None and p[0][1] == None and p[1][1] == None:
+        elif p[0][0] is None and p[0][1] is None and p[1][1] is None:
             result[0][x_limit] = p
-        elif p[0][0] == None and p[1][0] == None and p[1][1] == None:
+        elif p[0][0] is None and p[1][0] is None and p[1][1] is None:
             result[y_limit][0] = p
-        elif p[0][1] == None and p[1][1] == None and p[1][0] == None:
+        elif p[0][1] is None and p[1][1] is None and p[1][0] is None:
             result[y_limit][x_limit] = p
         else:
             remaining.append(p)
@@ -74,3 +74,5 @@ def puzzle_solver(pieces, width, height):
         answer.append(tuple(list))
 
     return answer
+
+
