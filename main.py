@@ -37,34 +37,44 @@ def puzzle_solver(pieces, width, height):
                                      result[index][i][1][1])
                             if check == west:
                                 result[index][i + 1] = p
-                                remaining.remove(p)
-
+                                try:
+                                    remaining.remove(p)
+                                    return True
+                                except ValueError:
+                                    break
 
                 def y_solving(result, index):
-                    for i in range(len(result[index]) - 1):
-                        debug = result[index][i]
-                        print(debug)
+                    for i in range(1, height - 1):
                         if result[index][i] != '':
                             check = (result[index][i][1])
                             if check == north:
-                                debug = result[i + 1][index]
-                                result[i + 1][index] = p
-                                remaining.remove(p)
+                                
+                                print(result)
+                                
+                                result[i][index + 1] = p
 
+                                print(result)
+
+                                try:
+                                    remaining.remove(p)
+                                    return True
+                                except ValueError:
+                                    break
 
                 for xxx in range(max(height, width)):
                     x_limit_loop = width - 1
                     y_limit_loop = height - 1
 
                     if xxx % 2 == 0:
-                        x_solving(result, xxx)
-                        y_solving(result, xxx)
+                        if x_solving(result, xxx) == True:
+                            break
+                        if y_solving(result, xxx) == True:
+                            break
                     elif xxx % 2 == 1:
                         x_solving(result, x_limit_loop)
                         x_limit_loop = x_limit_loop - 1
                         y_solving(result, y_limit_loop)
                         y_limit_loop = y_limit_loop - 1
-
 
     fill_pieces(result, remaining)
 
