@@ -31,34 +31,35 @@ def puzzle_solver(pieces, width, height):
                 west = (p[0][0], p[1][0])
 
                 def x_solving(result, index):
-                    for i in range(len(result[index]) - 1):
-                        if result[index][i] != '':
-                            check = (result[index][i][0][1],
-                                     result[index][i][1][1])
-                            if check == west:
-                                result[index][i + 1] = p
-                                try:
-                                    remaining.remove(p)
-                                    return True
-                                except ValueError:
-                                    break
+                    if p in remaining:
+                        for i in range(len(result[index]) - 1):
+                            if result[index][i] != '':
+                                check = (result[index][i][0][1],
+                                         result[index][i][1][1])
+                                if check == west:
+                                    result[index][i + 1] = p
+                                    try:
+                                        remaining.remove(p)
+                                        pass
+                                    except ValueError:
+                                        break
 
                 def y_solving(result, index):
-                    for i in range(1, height - 1):
-                        if result[index][i] != '':
-                            check = (result[index][i][1])
-                            if check == north:
-                                result[i][index] = p
-                                try:
-                                    remaining.remove(p)
-                                    return True
-                                except ValueError:
-                                    break
+                    if p in remaining:
+                        for i in range(0, height - 1):
+                            if result[index][i] != '':
+                                check = result[index][0][1]
+                                if check == north:
+                                    result[i+1][index] = p
+                                    try:
+                                        remaining.remove(p)
+                                        return True
+                                    except ValueError:
+                                        break
 
                 for xxx in range(max(height, width)):
                     x_solving(result, xxx)
                     y_solving(result, xxx)
-
 
     fill_pieces(result, remaining)
 
@@ -68,7 +69,5 @@ def puzzle_solver(pieces, width, height):
         for r in res:
             list.append(r[2])
         answer.append(tuple(list))
-
-    print(answer)
 
     return answer
