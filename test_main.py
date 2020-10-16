@@ -1,9 +1,12 @@
 import unittest
+import time
+import timeout_decorator
+
 from main import puzzle_solver
 
 
 class PuZZle(unittest.TestCase):
-
+    @timeout_decorator.timeout(3)
     def test_fixed_puzzle(self):
 
         fixed_puzzle = [((10, 11), (17, 2), 12), ((None, 3), (None, 5), 5), ((None, None), (None, 18), 18), ((1, 6), (10, 11), 6), ((7, 1), (12, 10), 7), ((18, 7), (3, 12), 10), ((17, 2), (None, None), 9), ((11, None), (2, None), 11), ((None, 18), (None, 3), 19), ((None, None), (6, None), 15), ((None, None), (18, 7), 4), ((None, None), (1, 6), 16), ((None, 5), (None, None), 14), ((5, 8), (None, None), 8), ((12, 10), (8, 17), 20), ((3, 12), (5, 8), 1), ((6, None), (11, None), 17), ((None, None), (7, 1), 3), ((2, None), (None, None), 13), ((8, 17), (None, None), 2)]
